@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Learning App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-container">
+      <!-- Login Screen -->
+      <div class="screen active" id="login">
+        <div class="content">
+          <div class="logo">
+            <span class="personal">personal</span>
+            <span class="learn-ai">LEARN AI</span>
+          </div>
+          <h2 style="text-align: center; margin-bottom: 24px">Welcome Back</h2>
+          <input
+            type="text"
+            class="input-field"
+            placeholder="Email or Student ID"
+          />
+          <input type="password" class="input-field" placeholder="Password" />
+          <button class="btn" onclick="navigateTo('dashboard')">Login</button>
+          <div style="text-align: center; margin-top: 12px">
+            <a href="#" style="color: #4caf50; text-decoration: none"
+              >Forgot Password?</a
+            >
+          </div>
+          <div
+            style="
+              text-align: center;
+              margin-top: 40px;
+              font-size: 12px;
+              color: #888;
+            "
+          >
+            Made with <span style="color: #ff4444">❤️</span> by Sami, Team 6
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Screen -->
+      <div class="screen" id="dashboard">
+        <div class="header">
+          <div class="menu-btn">☰</div>
+          <div>Dashboard</div>
+          <div onclick="navigateTo('profile')" style="cursor: pointer">👤</div>
+        </div>
+        <div class="content">
+          <div class="card">
+            <h3>Your Student Level</h3>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 10px 0;
+              "
+            >
+              <span style="font-size: 22px; font-weight: bold">78/100</span>
+              <span style="color: #4caf50">+4 today</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+
+          <h3 style="margin: 20px 0 12px">Today's Tasks</h3>
+          <div class="card" onclick="navigateTo('assignment-detail')">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div>
+                <h4>Calculus Quiz</h4>
+                <p style="color: #666; font-size: 13px">
+                  Due tomorrow • Difficulty: 7/10
+                </p>
+              </div>
+              <div style="color: #ff9800">🔥</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div>
+                <h4>English Essay</h4>
+                <p style="color: #666; font-size: 13px">
+                  Due next week • Difficulty: 6/10
+                </p>
+              </div>
+              <div style="color: #4caf50">✓</div>
+            </div>
+          </div>
+
+          <h3 style="margin: 20px 0 12px">AI Recommendations</h3>
+          <div class="card">
+            <h4>📚 Review Chapter 5: Derivatives</h4>
+            <p style="color: #666; font-size: 13px">
+              Based on your recent quiz performance
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assignments Screen -->
+      <div class="screen" id="assignments">
+        <div class="header">
+          <div class="back-btn" onclick="navigateTo('dashboard')">←</div>
+          <div>Assignments</div>
+          <div>🔍</div>
+        </div>
+        <div class="content">
+          <div
+            style="
+              display: flex;
+              gap: 8px;
+              margin-bottom: 16px;
+              overflow-x: auto;
+              padding-bottom: 8px;
+              -webkit-overflow-scrolling: touch;
+            "
+          >
+            <button
+              class="btn-secondary filter-btn active"
+              style="white-space: nowrap; flex-shrink: 0"
+              onclick="filterSubject('all')"
+            >
+              All Subjects
+            </button>
+            <button
+              class="btn-secondary filter-btn"
+              style="white-space: nowrap; flex-shrink: 0"
+              onclick="filterSubject('math')"
+            >
+              Math
+            </button>
+            <button
+              class="btn-secondary filter-btn"
+              style="white-space: nowrap; flex-shrink: 0"
+              onclick="filterSubject('english')"
+            >
+              English
+            </button>
+            <button
+              class="btn-secondary filter-btn"
+              style="white-space: nowrap; flex-shrink: 0"
+              onclick="filterSubject('chemistry')"
+            >
+              Chemistry
+            </button>
+          </div>
+
+          <div id="assignments-list">
+            <div
+              class="card assignment-card"
+              data-subject="math"
+              onclick="navigateTo('assignment-detail')"
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  gap: 12px;
+                "
+              >
+                <div style="flex: 1; min-width: 0">
+                  <h4>Calculus Quiz</h4>
+                  <p style="color: #666; font-size: 13px; margin-top: 4px">
+                    Due: Tomorrow
+                  </p>
+                  <p style="color: #ff9800; font-size: 12px; margin-top: 4px">
+                    ⚡ Difficulty: 7/10
+                  </p>
+                </div>
+                <div style="color: #ff9800; flex-shrink: 0">🔥</div>
+              </div>
+            </div>
+
+            <div class="card assignment-card" data-subject="english">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  gap: 12px;
+                "
+              >
+                <div style="flex: 1; min-width: 0">
+                  <h4>English Essay</h4>
+                  <p style="color: #666; font-size: 13px; margin-top: 4px">
+                    Due: Next Week
+                  </p>
+                  <p style="color: #4caf50; font-size: 12px; margin-top: 4px">
+                    ⚡ Difficulty: 6/10
+                  </p>
+                </div>
+                <div style="color: #4caf50; flex-shrink: 0">✓</div>
+              </div>
+            </div>
+
+            <div class="card assignment-card" data-subject="chemistry">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  gap: 12px;
+                "
+              >
+                <div style="flex: 1; min-width: 0">
+                  <h4>Chemistry Lab Report</h4>
+                  <p style="color: #666; font-size: 13px; margin-top: 4px">
+                    Due: Friday
+                  </p>
+                  <p style="color: #ff4444; font-size: 12px; margin-top: 4px">
+                    ⚡ Difficulty: 8/10
+                  </p>
+                </div>
+                <div style="color: #666; flex-shrink: 0">○</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assignment Detail Screen -->
+      <div class="screen" id="assignment-detail">
+        <div class="header">
+          <div class="back-btn" onclick="navigateTo('assignments')">←</div>
+          <div>Calculus Quiz</div>
+          <div>ℹ️</div>
+        </div>
+        <div class="content">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div style="color: #666; font-size: 13px">Difficulty</div>
+              <div style="font-weight: bold; margin-top: 4px">7/10</div>
+            </div>
+            <div class="stat-card">
+              <div style="color: #666; font-size: 13px">Est. Time</div>
+              <div style="font-weight: bold; margin-top: 4px">45 min</div>
+            </div>
+            <div class="stat-card">
+              <div style="color: #666; font-size: 13px">Attempts</div>
+              <div style="font-weight: bold; margin-top: 4px">0/3</div>
+            </div>
+            <div class="stat-card">
+              <div style="color: #666; font-size: 13px">Avg Score</div>
+              <div style="font-weight: bold; margin-top: 4px">75%</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>🤖 AI Analysis</h4>
+            <p style="color: #666; font-size: 13px; margin-top: 8px">
+              Based on your recent performance in derivatives, we recommend
+              reviewing Chapter 5 before starting this quiz.
+            </p>
+          </div>
+
+          <button class="btn" onclick="navigateTo('quiz')">
+            Start Assignment
+          </button>
+          <button class="btn btn-secondary">Review Materials</button>
+        </div>
+      </div>
+
+      <!-- Quiz Screen -->
+      <div class="screen" id="quiz">
+        <div class="header" style="position: relative">
+          <div class="back-btn" onclick="navigateTo('assignment-detail')">
+            ←
+          </div>
+          <div id="quiz-progress">Question 1/3</div>
+          <div class="timer">25:30</div>
+        </div>
+        <div class="content">
+          <div id="quiz-container">
+            <!-- Question 1 -->
+            <div class="quiz-question question-item active" data-question="1">
+              <h4>Find the derivative of:</h4>
+              <h3 style="margin: 12px 0; font-size: 18px">
+                f(x) = 3x² + 5x - 2
+              </h3>
+              <div style="margin-top: 8px; color: #666; font-size: 14px">
+                Tip: Use the power rule for polynomials
+              </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div
+              class="quiz-question question-item"
+              data-question="2"
+              style="display: none"
+            >
+              <h4>Evaluate the integral:</h4>
+              <h3 style="margin: 12px 0; font-size: 18px">∫(2x + 3)dx</h3>
+              <div style="margin-top: 8px; color: #666; font-size: 14px">
+                Tip: Integrate each term separately
+              </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div
+              class="quiz-question question-item"
+              data-question="3"
+              style="display: none"
+            >
+              <h4>Find the limit:</h4>
+              <h3 style="margin: 12px 0; font-size: 18px">
+                lim(x→0) (sin x)/x
+              </h3>
+              <div style="margin-top: 8px; color: #666; font-size: 14px">
+                Tip: This is a standard limit in calculus
+              </div>
+            </div>
+          </div>
+
+          <textarea
+            id="quiz-answer"
+            class="input-field"
+            style="height: 80px; resize: none"
+            placeholder="Enter your answer..."
+          ></textarea>
+
+          <div
+            id="answer-feedback"
+            style="margin-bottom: 12px; font-weight: bold; min-height: 20px"
+          ></div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap">
+            <button
+              class="btn btn-secondary"
+              style="width: calc(50% - 5px)"
+              onclick="showHelp()"
+            >
+              Get Help
+            </button>
+            <button
+              id="quiz-next-btn"
+              class="btn"
+              style="width: calc(50% - 5px)"
+              onclick="checkQuizAnswer()"
+            >
+              Check Answer
+            </button>
+          </div>
+
+          <div
+            id="quiz-help-text"
+            style="
+              text-align: center;
+              margin-top: 16px;
+              color: #666;
+              font-size: 13px;
+              display: none;
+            "
+          >
+            Answer shown above. You can copy it to the answer field.
+          </div>
+
+          <div
+            id="quiz-status"
+            style="
+              text-align: center;
+              margin-top: 16px;
+              color: #666;
+              font-size: 13px;
+            "
+          >
+            Struggling? AI tutor available after 2 attempts
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Completion Screen -->
+      <div class="screen" id="quiz-complete">
+        <div class="header">
+          <div class="back-btn" onclick="navigateTo('dashboard')">←</div>
+          <div>Quiz Complete!</div>
+          <div>🎉</div>
+        </div>
+        <div class="content">
+          <div class="card" style="text-align: center; padding: 30px 20px">
+            <h2 style="color: #4caf50; margin-bottom: 20px">Great Job!</h2>
+            <div
+              style="font-size: 24px; font-weight: bold; margin-bottom: 10px"
+            >
+              Score: <span id="quiz-score">0/0</span>
+            </div>
+            <div style="color: #666; margin-bottom: 20px">
+              Student Level: <span id="new-student-level">0</span>
+            </div>
+            <button class="btn" onclick="navigateTo('dashboard')">
+              Back to Dashboard
+            </button>
+            <button
+              class="btn btn-secondary"
+              style="margin-top: 10px"
+              onclick="navigateTo('progress')"
+            >
+              View Progress
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Screen -->
+      <div class="screen" id="progress">
+        <div class="header">
+          <div class="back-btn" onclick="navigateTo('dashboard')">←</div>
+          <div>My Progress</div>
+          <div>📊</div>
+        </div>
+        <div class="content">
+          <div class="card">
+            <h4>Student Level Trend</h4>
+            <div
+              style="
+                height: 120px;
+                background: #f8f9fa;
+                border-radius: 8px;
+                margin: 12px 0;
+                position: relative;
+              "
+            >
+              <canvas id="progressChart" width="300" height="120"></canvas>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>Subject Performance</h4>
+            <div style="margin: 12px 0">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin: 8px 0;
+                "
+              >
+                <span style="font-size: 14px">Mathematics</span>
+                <div style="display: flex; align-items: center; gap: 6px">
+                  <div
+                    style="
+                      width: 60px;
+                      height: 8px;
+                      background: #e0e0e0;
+                      border-radius: 4px;
+                    "
+                  >
+                    <div
+                      style="
+                        width: 75%;
+                        height: 100%;
+                        background: #4caf50;
+                        border-radius: 4px;
+                      "
+                    ></div>
+                  </div>
+                  <span style="color: #666; font-size: 12px">75%</span>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin: 8px 0;
+                "
+              >
+                <span style="font-size: 14px">English</span>
+                <div style="display: flex; align-items: center; gap: 6px">
+                  <div
+                    style="
+                      width: 60px;
+                      height: 8px;
+                      background: #e0e0e0;
+                      border-radius: 4px;
+                    "
+                  >
+                    <div
+                      style="
+                        width: 85%;
+                        height: 100%;
+                        background: #4caf50;
+                        border-radius: 4px;
+                      "
+                    ></div>
+                  </div>
+                  <span style="color: #666; font-size: 12px">85%</span>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin: 8px 0;
+                "
+              >
+                <span style="font-size: 14px">Chemistry</span>
+                <div style="display: flex; align-items: center; gap: 6px">
+                  <div
+                    style="
+                      width: 60px;
+                      height: 8px;
+                      background: #e0e0e0;
+                      border-radius: 4px;
+                    "
+                  >
+                    <div
+                      style="
+                        width: 60%;
+                        height: 100%;
+                        background: #ff9800;
+                        border-radius: 4px;
+                      "
+                    ></div>
+                  </div>
+                  <span style="color: #666; font-size: 12px">60%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>💡 AI Insights</h4>
+            <ul
+              style="
+                margin: 12px 0;
+                padding-left: 18px;
+                color: #666;
+                font-size: 13px;
+              "
+            >
+              <li>Focus on derivatives practice in Math</li>
+              <li>Great progress in English essays</li>
+              <li>Consider reviewing Physics Chapter 7</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Screen -->
+      <div class="screen" id="profile">
+        <div class="header">
+          <div class="back-btn" onclick="navigateTo('dashboard')">←</div>
+          <div>Profile</div>
+          <div>⚙️</div>
+        </div>
+        <div class="content">
+          <div class="profile-header">
+            <div class="avatar">SR</div>
+            <h3>Sami ur Rehman</h3>
+            <p style="color: #666; font-size: 14px">Student Level: 78</p>
+          </div>
+
+          <div class="card">
+            <h4>Learning Preferences</h4>
+            <p style="color: #666; font-size: 13px; margin-top: 4px">
+              Customize your learning experience
+            </p>
+          </div>
+
+          <div class="card">
+            <h4>Notification Settings</h4>
+            <p style="color: #666; font-size: 13px; margin-top: 4px">
+              Manage alerts and reminders
+            </p>
+          </div>
+
+          <div class="card">
+            <h4>Privacy Settings</h4>
+            <p style="color: #666; font-size: 13px; margin-top: 4px">
+              Control your data and privacy
+            </p>
+          </div>
+
+          <div class="card">
+            <h4>Help & Support</h4>
+            <p style="color: #666; font-size: 13px; margin-top: 4px">
+              Get assistance and feedback
+            </p>
+          </div>
+
+          <button
+            class="btn"
+            style="background: #ff4444; margin-top: 16px"
+            onclick="navigateTo('login')"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Bar -->
+      <div class="navbar">
+        <div class="nav-btn" onclick="navigateTo('dashboard')">
+          <div class="nav-icon">🏠</div>
+          <div>Home</div>
+        </div>
+        <div class="nav-btn" onclick="navigateTo('assignments')">
+          <div class="nav-icon">📚</div>
+          <div>Tasks</div>
+        </div>
+        <div class="nav-btn" onclick="navigateTo('progress')">
+          <div class="nav-icon">📊</div>
+          <div>Progress</div>
+        </div>
+        <div class="nav-btn" onclick="navigateTo('profile')">
+          <div class="nav-icon">👤</div>
+          <div>Profile</div>
+        </div>
+      </div>
+
+      <!-- Help Modal -->
+      <div class="modal-overlay" id="help-modal-overlay">
+        <div class="modal">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 12px;
+            "
+          >
+            <h3 style="font-size: 18px">🤖 AI Tutor Help</h3>
+            <div
+              onclick="hideHelp()"
+              style="cursor: pointer; font-size: 24px; color: #666"
+            >
+              ×
+            </div>
+          </div>
+
+          <p style="color: #666; margin-bottom: 12px; font-size: 14px">
+            Let me guide you through this step by step...
+          </p>
+
+          <div id="help-content" class="help-list">
+            <!-- Dynamic content based on current question -->
+          </div>
+
+          <button class="btn" onclick="copyAnswerToField()">
+            Copy Correct Answer
+          </button>
+          <button class="btn btn-secondary" onclick="hideHelp()">
+            Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
